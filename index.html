@@ -49,6 +49,7 @@
     .content {
       max-height: 60px;
       overflow: hidden;
+      transition: max-height 0.3s ease;
     }
     .see-more {
       background: transparent;
@@ -62,12 +63,11 @@
 
   <!-- Firebase SDK -->
   <script type="module">
-    // Import Firebase
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-    import { getDatabase, ref, get, set, update, onValue } 
+    import { getDatabase, ref, get, set, onValue } 
       from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
-    // Your Firebase Config (replace with your own from Firebase Console)
+    // 🔹 Replace with your Firebase config
     const firebaseConfig = {
       apiKey: "YOUR_API_KEY",
       authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
@@ -78,12 +78,11 @@
       appId: "YOUR_APP_ID"
     };
 
-    // Initialize Firebase
     const app = initializeApp(firebaseConfig);
     const db = getDatabase(app);
 
-    // Toggle like
-    async function toggleLike(id) {
+    // Toggle Like
+    window.toggleLike = function(id) {
       const btn = document.getElementById("like-" + id);
       const likeRef = ref(db, "likes/" + id);
 
@@ -104,9 +103,9 @@
 
         set(likeRef, count);
       });
-    }
+    };
 
-    // Load likes from Firebase
+    // Load Likes from Firebase
     window.onload = function() {
       const buttons = document.querySelectorAll(".like-btn");
       buttons.forEach(btn => {
@@ -120,7 +119,7 @@
 
         btn.setAttribute("data-liked", "false");
       });
-    }
+    };
 
     // Expand essay
     window.toggleContent = function(id) {
@@ -134,9 +133,7 @@
         content.style.maxHeight = "none";
         btn.innerText = "See Less";
       }
-    }
-
-    window.toggleLike = toggleLike;
+    };
   </script>
 </head>
 <body>
