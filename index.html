@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Educational Posts</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background: #f9f9f9;
+      color: #333;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    h1 {
+      color: #2c3e50;
+    }
+    .post {
+      background: #fff;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .post h2 {
+      margin-top: 0;
+      color: #2980b9;
+    }
+    .meta {
+      font-size: 0.9em;
+      color: #777;
+      margin-bottom: 10px;
+    }
+    .post p {
+      margin: 10px 0 15px;
+      display: none;
+    }
+    .post p.show {
+      display: block;
+    }
+    .like-btn, .see-more-btn {
+      background: #2980b9;
+      color: #fff;
+      border: none;
+      padding: 8px 14px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 0.9em;
+      margin-right: 10px;
+    }
+    .like-btn:hover, .see-more-btn:hover {
+      background: #1f6391;
+    }
+  </style>
+  <script>
+    function toggleLike(id) {
+      const btn = document.getElementById("like-" + id);
+      let liked = btn.getAttribute("data-liked") === "true";
+      let count = parseInt(btn.getAttribute("data-count"));
+
+      if (liked) {
+        count--;
+        btn.setAttribute("data-liked", "false");
+      } else {
+        count++;
+        btn.setAttribute("data-liked", "true");
+      }
+
+      btn.setAttribute("data-count", count);
+      btn.innerText = "👍 Like (" + count + ")";
+    }
+
+    function toggleContent(id) {
+      const content = document.getElementById("content-" + id);
+      const btn = document.getElementById("see-" + id);
+      if (content.classList.contains("show")) {
+        content.classList.remove("show");
+        btn.innerText = "See More";
+      } else {
+        content.classList.add("show");
+        btn.innerText = "See Less";
+      }
+    }
+  </script>
+</head>
+<body>
+  <header>
+    <h1>Educational Posts</h1>
+    <p>A simple page for learning resources</p>
+  </header>
+
+  <div class="post">
+    <h2>What is Flood Control?</h2>
+    <div class="meta">Posted by <strong>Admin</strong> on September 21, 2025</div>
+    <p id="content-1">Flood control is the practice of managing water to prevent flooding in communities. It is important in reducing damage and protecting lives. This includes building dams, levees, drainage systems, and creating awareness in communities to prepare for natural disasters. By implementing these strategies, communities can reduce the risk of loss of property, resources, and even lives. Education about flood control also encourages younger generations to value preparedness and resilience in times of crisis.</p>
+    <button id="see-1" class="see-more-btn" onclick="toggleContent(1)">See More</button>
+    <button id="like-1" class="like-btn" data-count="0" data-liked="false" onclick="toggleLike(1)">👍 Like (0)</button>
+  </div>
+
+  <div class="post">
+    <h2>Importance of Reading</h2>
+    <div class="meta">Posted by <strong>Teacher Jane</strong> on September 20, 2025</div>
+    <p id="content-2">Reading helps improve vocabulary, knowledge, and critical thinking skills. It opens doors to new ideas and perspectives. By reading regularly, students strengthen comprehension, enhance creativity, and develop empathy for others. Books and articles allow us to explore different cultures, histories, and innovations that shape our world. Furthermore, it supports academic success, as most learning materials require a strong foundation in reading to understand concepts effectively.</p>
+    <button id="see-2" class="see-more-btn" onclick="toggleContent(2)">See More</button>
+    <button id="like-2" class="like-btn" data-count="0" data-liked="false" onclick="toggleLike(2)">👍 Like (0)</button>
+  </div>
+
+  <div class="post">
+    <h2>Cyberbullying Awareness</h2>
+    <div class="meta">Posted by <strong>Student Council</strong> on September 18, 2025</div>
+    <p id="content-3">Cyberbullying affects mental health and well-being. Awareness and education help prevent and address this issue effectively. Students should be taught how to report, block, and avoid harmful online interactions. Schools and families can work together to build safe online spaces, encouraging kindness and empathy. Every student deserves a secure environment where learning is free from fear and harassment. Promoting digital responsibility empowers young people to become respectful digital citizens.</p>
+    <button id="see-3" class="see-more-btn" onclick="toggleContent(3)">See More</button>
+    <button id="like-3" class="like-btn" data-count="0" data-liked="false" onclick="toggleLike(3)">👍 Like (0)</button>
+  </div>
+
+</body>
+</html>
