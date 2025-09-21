@@ -34,18 +34,6 @@
       color: #777;
       margin-bottom: 10px;
     }
-    .like-btn {
-      background: #2980b9;
-      color: #fff;
-      border: none;
-      padding: 8px 14px;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 0.9em;
-    }
-    .like-btn:hover {
-      background: #1f6391;
-    }
     .content {
       max-height: 60px;
       overflow: hidden;
@@ -60,69 +48,8 @@
       margin-top: 5px;
     }
   </style>
-
-  <!-- Firebase SDK -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-    import { getDatabase, ref, get, set, onValue } 
-      from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
-
-    // 🔹 Replace with your Firebase config
-    const firebaseConfig = {
-      apiKey: "YOUR_API_KEY",
-      authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-      databaseURL: "https://YOUR_PROJECT_ID.firebaseio.com",
-      projectId: "YOUR_PROJECT_ID",
-      storageBucket: "YOUR_PROJECT_ID.appspot.com",
-      messagingSenderId: "YOUR_SENDER_ID",
-      appId: "YOUR_APP_ID"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const db = getDatabase(app);
-
-    // Toggle Like
-    window.toggleLike = function(id) {
-      const btn = document.getElementById("like-" + id);
-      const likeRef = ref(db, "likes/" + id);
-
-      get(likeRef).then(snapshot => {
-        let count = snapshot.exists() ? snapshot.val() : 0;
-        let liked = btn.getAttribute("data-liked") === "true";
-
-        if (liked) {
-          count--;
-          liked = false;
-        } else {
-          count++;
-          liked = true;
-        }
-
-        btn.innerText = "👍 Like (" + count + ")";
-        btn.setAttribute("data-liked", liked);
-
-        set(likeRef, count);
-      });
-    };
-
-    // Load Likes from Firebase
-    window.onload = function() {
-      const buttons = document.querySelectorAll(".like-btn");
-      buttons.forEach(btn => {
-        const id = btn.id.split("-")[1];
-        const likeRef = ref(db, "likes/" + id);
-
-        onValue(likeRef, snapshot => {
-          let count = snapshot.exists() ? snapshot.val() : 0;
-          btn.innerText = "👍 Like (" + count + ")";
-        });
-
-        btn.setAttribute("data-liked", "false");
-      });
-    };
-
-    // Expand essay
-    window.toggleContent = function(id) {
+  <script>
+    function toggleContent(id) {
       const content = document.getElementById("content-" + id);
       const btn = document.getElementById("see-" + id);
 
@@ -133,7 +60,7 @@
         content.style.maxHeight = "none";
         btn.innerText = "See Less";
       }
-    };
+    }
   </script>
 </head>
 <body>
@@ -150,8 +77,7 @@
       It is important in reducing damage and protecting lives. Flood management systems 
       include dams, levees, and proper urban planning to ensure safety during heavy rains.
     </div>
-    <button class="see-more" id="see-1" onclick="toggleContent(1)">See More</button><br>
-    <button id="like-1" class="like-btn" onclick="toggleLike(1)">👍 Like (0)</button>
+    <button class="see-more" id="see-1" onclick="toggleContent(1)">See More</button>
   </div>
 
   <div class="post">
@@ -162,8 +88,7 @@
       It opens doors to new ideas and perspectives. Students who read regularly 
       also develop better writing skills and perform better academically.
     </div>
-    <button class="see-more" id="see-2" onclick="toggleContent(2)">See More</button><br>
-    <button id="like-2" class="like-btn" onclick="toggleLike(2)">👍 Like (0)</button>
+    <button class="see-more" id="see-2" onclick="toggleContent(2)">See More</button>
   </div>
 
   <div class="post">
@@ -174,8 +99,7 @@
       help prevent and address this issue effectively. Schools should implement 
       programs that promote digital responsibility and kindness online.
     </div>
-    <button class="see-more" id="see-3" onclick="toggleContent(3)">See More</button><br>
-    <button id="like-3" class="like-btn" onclick="toggleLike(3)">👍 Like (0)</button>
+    <button class="see-more" id="see-3" onclick="toggleContent(3)">See More</button>
   </div>
 
 </body>
